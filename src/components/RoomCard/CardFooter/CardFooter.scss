@@ -1,0 +1,37 @@
+@import '../../../assets/variables.scss';
+
+.footer_container {
+    padding: 8px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: $text-main-color;
+}
+
+.footer_text_line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    line-height: 2rem;
+
+    .name{
+        color: $name-color;
+        font-size: 1.1rem;
+    }
+    
+    .sub-text{
+        color: $text-dim-color;
+        margin-right: auto;
+        padding-left: 0.5rem;
+    }
+    
+    .footer_btn {
+        margin-left: auto;
+        padding: 0;
+    }
+
+    .no-bed-avail{
+        margin-left: 0.5rem;
+        color: $name-color;
+    }
+}

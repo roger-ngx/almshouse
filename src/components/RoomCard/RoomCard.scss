@@ -1,0 +1,19 @@
+.card {
+    border-radius: 1.5rem;
+    border: 1px solid #d4d4d4;
+    margin: 1rem;
+    max-width: 25rem;
+    width: 300px;
+    height: 300px;
+}
+
+.card_img {
+    height: calc(100% - 4rem - 16px);
+    background-image: url('https://woozoo.s3.amazonaws.com/uploads/house/main_image/36/1708_hproomthumnail-36.png');
+    border-radius: 1.5rem 1.5rem 0 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.card_footer {
+}
