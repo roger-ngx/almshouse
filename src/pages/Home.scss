@@ -3,20 +3,24 @@
 .category-list{
     width: 15%;
     height: 100vh;
+    padding: 0 20px;
 
-    li {
+    ul, li {
         list-style-type: none;
         font-size: 0.85vw;
+        padding-inline-start: 0;
     }
 }
 
 .house-list {
     width: 40%;
     height: 100vh;
+    padding: 0 20px;
 }
 
 .home-container{
     display: flex;
     flex-direction: 'row';
     font-family: $font-family;
+    padding: 20px;
 }

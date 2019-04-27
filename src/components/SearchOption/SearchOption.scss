@@ -1,0 +1,51 @@
+.option-btn {
+    border: 1px solid #9b9b9b !important;
+    border-radius: 2rem !important;
+    font-size: 0.8vw !important;
+    color: #9b9b9b !important;
+    margin-right: 2% !important;
+    width: 5vw !important;
+    padding: 5px 10px !important;
+}
+
+.submit-btn {
+    border-color: #ed3245 !important;
+    color: #ed3245 !important;
+    width: auto !important;
+    min-width: 5vw !important;
+}
+
+.option-reload-btn{
+    @extend .option-btn;
+    @extend .submit-btn;
+}
+
+.option-search-btn{
+    @extend .option-btn;
+    @extend .submit-btn;
+
+    background-color: #ed3245 !important;
+    color: #fff !important;
+}
+
+.option-title {
+    line-height: 2vw;
+    margin-top: 0.7vw;
+    font-size: 0.8vw;
+    letter-spacing: -0.1vw;
+    color: #8e8888;
+}
+
+.option-range {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.option-range-container{
+    padding: 15px 15px 0;
+}
+
+.input-range__label--min, .input-range__label--max{
+    display: none;
+}
