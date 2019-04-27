@@ -91,7 +91,7 @@ const SearchOption = () => <div>
             }}
         />
     </div>
-    <div className='option-title'>
+    <div className='option-submit'>
         <Button className='option-reload-btn'>
             <ReplayIcon />
             <span>초기화</span>
