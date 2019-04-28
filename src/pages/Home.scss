@@ -3,7 +3,7 @@
 .category-list{
     width: 15%;
     height: 100vh;
-    padding: 0 20px;
+    padding: 0 30px;
 
     ul, li {
         list-style-type: none;
@@ -16,6 +16,11 @@
     width: 40%;
     height: 100vh;
     padding: 0 20px;
+}
+
+.map-container {
+    width: 40%;
+    height: 100vh;
 }
 
 .home-container{
