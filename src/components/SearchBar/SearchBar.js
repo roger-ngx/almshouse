@@ -10,7 +10,7 @@ const styles = {
       padding: '10px 20px',
       display: 'flex',
       alignItems: 'center',
-      width: '100%ß',
+      width: '100%',
     },
     input: {
       marginLeft: 8,

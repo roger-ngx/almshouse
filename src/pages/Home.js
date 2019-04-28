@@ -6,21 +6,20 @@ import MapContainer from '../components/MapContainer/MapContainer';
 import MainContent from './Home/MainContent';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
 
-const Home = () => <div>
+const Home = () => <div className='main-container'>
 
     <NavigationBar />
-<div className='home-container'>
-    
-    <div className='category-list'>
-        <CategoryList />
+    <div className='home-container'>
+        <div className='category-list'>
+            <CategoryList />
+        </div>
+        <div className='house-list'>
+            <MainContent />
+        </div>
+        <div className='map-container'>
+            <MapContainer />
+        </div>
     </div>
-    <div className='house-list'>
-        <MainContent />
-    </div>
-    <div className='map-container'>
-        <MapContainer />
-    </div>
-</div>
 </div>
 
 export default Home;
