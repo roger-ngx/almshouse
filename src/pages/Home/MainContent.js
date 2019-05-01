@@ -1,5 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SearchOption from '../../components/SearchOption/SearchOption';
 import RoomCard from '../../components/RoomCard/RoomCard';
@@ -24,9 +26,20 @@ const MainContent = (props)=> {
         </div>
         <div className={classes.searchContent}>
             <SearchOption />
-            <RoomCard />
-            <RoomCard />
-            <RoomCard />
+            <Grid container spacing={32}>
+                <Grid item xs={6}>
+                    <RoomCard />
+                </Grid>
+                <Grid item xs={6}>
+                    <RoomCard />
+                </Grid>
+                <Grid item xs={6}>
+                    <RoomCard />
+                </Grid>
+                <Grid item xs={6}>
+                    <RoomCard />
+                </Grid>
+            </Grid>
         </div>
     </>
 }

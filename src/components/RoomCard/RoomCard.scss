@@ -1,19 +1,17 @@
 .card {
     border-radius: 1.5rem;
     border: 1px solid #d4d4d4;
-    margin: 1rem;
     max-width: 25rem;
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    margin: auto;
 }
 
+//https://www.w3schools.com/howto/howto_css_aspect_ratio.asp
 .card_img {
-    height: calc(100% - 4rem - 16px);
+    padding-top: 80%;
+    position: relative;
     background-image: url('https://woozoo.s3.amazonaws.com/uploads/house/main_image/36/1708_hproomthumnail-36.png');
     border-radius: 1.5rem 1.5rem 0 0;
     background-size: cover;
     background-position: center;
-}
-
-.card_footer {
 }
