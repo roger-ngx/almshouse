@@ -1,0 +1,28 @@
+.house-section-btn{
+    width: 25%;
+    height: 48px !important;
+    line-height: 48px;
+    vertical-align: middle;
+    text-align: center;
+    color: #999;
+    border-right: 1px solid #EEE;
+    background-color: #F9F9F9;
+    text-decoration: none;
+
+}
+
+.house-section-btn-active{
+    background-color: #FD675A;
+    border-bottom-color: #FD675A;
+    color: #FFF;
+    font-weight: 700;
+}
+
+.home-section{
+    display: flex;
+    flex-direction:row;
+    border: 1px solid #EEE;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
 
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SearchOption from '../../components/SearchOption/SearchOption';
@@ -28,7 +29,9 @@ const MainContent = (props)=> {
             <SearchOption />
             <Grid container spacing={32}>
                 <Grid item xs={6}>
-                    <RoomCard />
+                    <Link to='/houses'>
+                        <RoomCard />
+                    </Link>
                 </Grid>
                 <Grid item xs={6}>
                     <RoomCard />

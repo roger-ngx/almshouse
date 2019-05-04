@@ -24,7 +24,7 @@ const SearchOption = () => <div>
             <span>20~45만원</span>
         </div>
 
-        <div class='option-range-container'>
+        <div className='option-range-container'>
             <InputRange 
                 maxValue={100}
                 minValue={0}

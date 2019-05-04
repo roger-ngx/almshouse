@@ -3,6 +3,7 @@
 body {
     margin: 0;
     height: 100vh;
+    font-family: $font-family;
 }
 
 ::-webkit-scrollbar {
@@ -41,7 +42,6 @@ body {
     display: flex;
     flex-direction: 'row';
     height: calc(100% - 64px);
-    font-family: $font-family;
     padding: 20px;
 }
 
