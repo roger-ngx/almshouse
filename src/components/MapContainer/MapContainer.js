@@ -12,7 +12,7 @@ const MapContainer = (props) => (<GoogleMapReact
         <Marker
             lat={59.955413}
             lng={30.337844}
-            text="My Marker"
+            qtt={2}
         />
     </GoogleMapReact>)
 

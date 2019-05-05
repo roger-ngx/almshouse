@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import ImageGallery from 'react-image-gallery';
 import { observer } from 'mobx-react-lite';
-import { throttle } from 'lodash';
 
 import './HouseDetail.scss'
 import { observable } from 'mobx';
@@ -27,60 +26,61 @@ const roomIntro = React.createRef();
 const roomDetail = React.createRef();
 
 let currentSection = observable.box(1);
-let lastScrollPosition = 0;
+// let lastScrollPosition = 0;
 
 const HouseDetail = () => {
 
-    function handleScroll(){
-        // console.log(lastScrollPosition, scrollPosition);
-        let scrollPosition = 0;
+    // function handleScroll(){
+    //     // console.log(lastScrollPosition, scrollPosition);
+    //     let scrollPosition = 0;
 
-        if(window.pageYOffset < lastScrollPosition){
-            scrollPosition = window.pageYOffset;//scroll up
-        }else{
-            scrollPosition = window.pageYOffset + window.innerHeight;//scroll down
-        }
+    //     if(window.pageYOffset < lastScrollPosition){
+    //         scrollPosition = window.pageYOffset;//scroll up
+    //     }else{
+    //         scrollPosition = window.pageYOffset + window.innerHeight;//scroll down
+    //     }
 
-        lastScrollPosition = window.pageYOffset;
+    //     lastScrollPosition = window.pageYOffset;
 
-        const faqPosition = faq.current.offsetTop;
-        const pointPosition = pointIntro.current.offsetTop;
-        const roomIntroPosition = roomIntro.current.offsetTop;
-        const roomDetailPosition = roomDetail.current.offsetTop;
+    //     const faqPosition = faq.current.offsetTop;
+    //     const pointPosition = pointIntro.current.offsetTop;
+    //     const roomIntroPosition = roomIntro.current.offsetTop;
+    //     const roomDetailPosition = roomDetail.current.offsetTop;
 
 
-        if(scrollPosition >= pointPosition) currentSection.set(1);
-        if(scrollPosition >= roomIntroPosition) currentSection.set(2);
-        if(scrollPosition >= roomDetailPosition) currentSection.set(3);
-        if(scrollPosition >= faqPosition) currentSection.set(4);
-    }
+    //     if(scrollPosition >= pointPosition) currentSection.set(1);
+    //     if(scrollPosition >= roomIntroPosition) currentSection.set(2);
+    //     if(scrollPosition >= roomDetailPosition) currentSection.set(3);
+    //     if(scrollPosition >= faqPosition) currentSection.set(4);
+    // }
 
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
+    // useEffect(() => {
+    //     window.addEventListener('scroll', handleScroll);
 
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    });
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll);
+    //     };
+    // });
 
     return (<div style={{padding: '0 20%'}}>
     <div style={{paddingBottom: '20px'}}>
         <ImageGallery items={images} />
     </div>
     <div className='home-section'>
-        <a href='#point-intro' className={`house-section-btn ${currentSection.get() === 1 ? 'house-section-btn-active' : ''}`}>
+        <a href='#point-intro' onClick={() => currentSection.set(1)} className={`house-section-btn ${currentSection.get() === 1 ? 'house-section-btn-active' : ''}`}>
             지점 소개
         </a>
-        <a href='#room-intro' className={`house-section-btn ${currentSection.get() === 2 ? 'house-section-btn-active' : ''}`}>
+        <a href='#room-intro' onClick={() => currentSection.set(2)} className={`house-section-btn ${currentSection.get() === 2 ? 'house-section-btn-active' : ''}`}>
             방 정보
         </a>
-        <a href='#detail-intro' className={`house-section-btn ${currentSection.get() === 3 ? 'house-section-btn-active' : ''}`}>
+        <a href='#detail-intro' onClick={() => currentSection.set(3)} className={`house-section-btn ${currentSection.get() === 3 ? 'house-section-btn-active' : ''}`}>
             세부 정보
         </a>
-        <a href='#faq' className={`house-section-btn ${currentSection.get() === 4 ? 'house-section-btn-active' : ''}`}>
+        <a href='#faq' onClick={() => currentSection.set(4)} className={`house-section-btn ${currentSection.get() === 4 ? 'house-section-btn-active' : ''}`}>
             FAQ
         </a>
     </div>
+    {currentSection.get() === 1 && <>
     <div id='point-intro' ref={pointIntro}  style={{marginTop: '20px'}}>
         우주 6호점의 특징은 한 마디로 #가족 #패밀리쉽 #정 이 넘치는 곳이에요. 3개층으로 이뤄진 공간에서 남자셋 여자셋이 가능한 공간이랍니다!<br/>
         총 10명의 우주인이 함께 모여있는 이곳은 개별 공간으로 잘 구분이 되어있어 따로 또 같이가 충분히 이뤄질 수 있답니다. 우주인들만의 전용 테라스와 마당도 있고요, 함께 요리를 해먹고 또 함께 놀러 다니기에도 좋답니다.<br/> 
@@ -100,12 +100,17 @@ const HouseDetail = () => {
         그럼, 우주에서 즐거운 추억 많이 만들어가세요! :)<br/>
         #꼭한번_살아보고싶은 #2030청춘들의 #셰어하우스우주`}<br/>
     </div>
+    </>
+    }
+    {currentSection.get() === 2 &&
     <div id='room-intro' ref={roomIntro} style={{marginTop: '20px'}}>
         - 운영관리비와 선불공과금은 매월 별도로 납부해주셔야 합니다. [자세히 알아보기]<br/>
         - 투어신청은 최대 두 지점까지만 가능합니다.<br/>
         - 투어신청은 입주가능일 45일 전부터 가능합니다.<br/>
         - 입주대기를 해주시면 해당 방 신청이 가능해졌을 때 SMS 알림이 갑니다.<br/>
     </div>
+    }
+    {currentSection.get() === 3&& <>
     <div id='room-detail' ref={roomDetail} style={{marginTop: '20px'}}>
         지하철<br/>
         미아사거리역 - 4호선<br/>
@@ -172,6 +177,9 @@ const HouseDetail = () => {
         하나로마트<br/>
         병원/약국<br/>
     </div>
+    </>
+    }
+    {currentSection.get() === 4 && <>
     <div id='faq' ref={faq} style={{marginTop: '20px'}}>
         1. 입주신청서를 제출했습니다. 이후 과정은 어떻게 되나요?<br/>
         2. 보증금과 월세 외에 다른 비용에는 무엇이 있나요?<br/>
@@ -200,6 +208,8 @@ const HouseDetail = () => {
         11. 입주 시 꼭 챙겨야 하는 물건이 있나요?<br/>
         12. 반려동물/애완동물을 키울 수 있나요?<br/>
     </div>
+    </>
+    }
 </div>)
 }
 
