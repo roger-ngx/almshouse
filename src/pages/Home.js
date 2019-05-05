@@ -4,11 +4,8 @@ import './Home.scss';
 import CategoryList from './Home/CategoryList';
 import MapContainer from '../components/MapContainer/MapContainer';
 import MainContent from './Home/MainContent';
-import NavigationBar from '../components/NavigationBar/NavigationBar';
 
 const Home = () => <div className='main-container'>
-
-    <NavigationBar />
     <div className='home-container'>
         <div className='category-list'>
             <CategoryList />

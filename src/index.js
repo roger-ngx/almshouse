@@ -8,13 +8,21 @@ import * as serviceWorker from './serviceWorker';
 import HomeStore from './stores/HomeStore';
 import HouseDetail from './pages/HouseDetail';
 import "../node_modules/react-image-gallery/styles/css/image-gallery.css";
+import NavigationBar from './components/NavigationBar/NavigationBar';
 
 ReactDOM.render(
     <Provider HomeStore={HomeStore}>
-        <Router>
-            <Route exact path='/' component={Home} />
-            <Route path='/houses' component={HouseDetail} />
-        </Router>
+        <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+            <div style={{width: '100%'}}>
+                <NavigationBar />
+            </div>
+            <div style={{flex: 1, overflow: 'scroll'}}>
+                <Router>
+                    <Route exact path='/' component={Home} />
+                    <Route path='/houses' component={HouseDetail} />
+                </Router>
+            </div>
+        </div>
     </Provider>,
     document.getElementById('root')
 );

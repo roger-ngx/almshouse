@@ -10,18 +10,18 @@ const MapContainer = (props) => (<GoogleMapReact
         yesIWantToUseGoogleMapApiInternals
     >
         <Marker
-            lat={59.955413}
-            lng={30.337844}
+            lat={37.566667}
+            lng={126.966667}
             qtt={2}
         />
     </GoogleMapReact>)
 
 MapContainer.defaultProps = {
     center: {
-      lat: 59.95,
-      lng: 30.33
+      lat: 37.567,
+      lng: 126.967
     },
-    zoom: 11
+    zoom: 13
   };
 
 

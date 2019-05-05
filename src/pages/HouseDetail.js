@@ -62,7 +62,7 @@ const HouseDetail = () => {
     //     };
     // });
 
-    return (<div style={{padding: '0 20%'}}>
+    return (<div style={{padding: '20px 20% 0'}}>
     <div style={{paddingBottom: '20px'}}>
         <ImageGallery items={images} />
     </div>
