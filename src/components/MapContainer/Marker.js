@@ -11,7 +11,8 @@ const styles = {
         lineHeight: '30px',
         textAlign: 'center',
         verticalAlign: 'middle',
-        boxShadow: '0 0 5px 5px rgba(255,0,0,0.7)'
+        boxShadow: '0 0 5px 5px rgba(255,0,0,0.7)',
+        cursor: 'pointer'
     },
     qtt: {
         fontSize: '18px',

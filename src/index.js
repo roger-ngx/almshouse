@@ -9,9 +9,13 @@ import HomeStore from './stores/HomeStore';
 import HouseDetail from './pages/HouseDetail';
 import "../node_modules/react-image-gallery/styles/css/image-gallery.css";
 import NavigationBar from './components/NavigationBar/NavigationBar';
+import MapStore from './stores/MapStore';
 
 ReactDOM.render(
-    <Provider HomeStore={HomeStore}>
+    <Provider 
+        HomeStore={HomeStore}
+        MapStore={MapStore}
+    >
         <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
             <div style={{width: '100%'}}>
                 <NavigationBar />

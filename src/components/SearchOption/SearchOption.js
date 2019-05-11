@@ -32,7 +32,7 @@ const SearchOption = () => <div>
             />
         </div>
 
-        <div class='option-range'>
+        <div className='option-range'>
             <span>0만원</span>
             &nbsp;&nbsp;
             <span>100만원</span>
