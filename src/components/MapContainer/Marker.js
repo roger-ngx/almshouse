@@ -22,7 +22,7 @@ const styles = {
 
 const Marker = (props) => (<div style={styles.markerContainer}>
     <span style={styles.qtt}>
-        {props.qtt}
+        {props.text}
     </span>
 </div>)
 

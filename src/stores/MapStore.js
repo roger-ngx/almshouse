@@ -1,17 +1,23 @@
-import { action, decorate } from "mobx";
+import { action, decorate, observable } from "mobx";
 import firebase from '../config/Firebase';
 import { forEach } from 'lodash';
 
 class MapStore {
+    mapProps = {};
+
     onMarkerClicked = async(key, childProps) => {
         console.log(childProps);
         const docs = await firebase.firestore().collection('thanh').get();
         forEach(docs.docs, doc => console.log(doc.data()));
     }
+
+    onChange = e => this.mapProps = e;
 }
 
 decorate(MapStore, {
-    onMarkerClicked: action
+    mapProps: observable,
+    onMarkerClicked: action,
+    onChange: action
 });
 
 export default new MapStore();
