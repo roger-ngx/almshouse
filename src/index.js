@@ -10,11 +10,14 @@ import HouseDetail from './pages/HouseDetail';
 import "../node_modules/react-image-gallery/styles/css/image-gallery.css";
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import MapStore from './stores/MapStore';
+import Admin from './pages/Admin/Admin';
+import AdminStore from './stores/AdminStore';
 
 ReactDOM.render(
     <Provider 
         HomeStore={HomeStore}
         MapStore={MapStore}
+        AdminStore={AdminStore}
     >
         <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
             <div style={{width: '100%'}}>
@@ -24,6 +27,7 @@ ReactDOM.render(
                 <Router>
                     <Route exact path='/' component={Home} />
                     <Route path='/houses' component={HouseDetail} />
+                    <Route path='/admin' component={Admin} />
                 </Router>
             </div>
         </div>

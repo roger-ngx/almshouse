@@ -25,11 +25,11 @@ const MapContainer = (props) => {
       lat: wy,
       lng: wx,
       text: numPoints,
-      numPoints,
+      points,
       id: `${numPoints}_${points[0].id}`,
     }));
 
-    console.log(clusters);
+    clusters.forEach(cluster => console.log(cluster.points));
 
     return (<GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyCixUR0mtJz0qyWd0FDI1-WYEcHjqvaw5Y' }}
