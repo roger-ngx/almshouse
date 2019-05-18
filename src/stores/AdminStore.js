@@ -1,9 +1,24 @@
 import firebase from '../config/Firebase';
 import { decorate, observable, action, runInAction } from 'mobx';
-import { forEach } from 'lodash';
+import { set, forEach } from 'lodash';
 
 class AdminStore {
     uploadedImageUrls = [];
+    waitingImages = [[]];
+    roomInfo = {location: {}};
+
+    setWaitingImages = (index, images) => set(this.waitingImages, `[${index}]`, Array.from(images));
+
+    deleteWaitingImages = (index, subIndex) => {
+        this.waitingImages[index].splice(subIndex, 1);
+    }
+
+    onHandleRoomInfoChanged = e => {
+        const prop = e.target.name;
+        set(this.roomInfo, `${prop}`, e.target.value);
+    }
+
+    addWaitingImageType = () => this.waitingImages.push([]);
 
     uploadImagesToStorage = (images) => {
         const storageRef = firebase.storage().ref();
@@ -29,7 +44,12 @@ class AdminStore {
 
 decorate(AdminStore, {
     uploadedImageUrls: observable,
-    uploadImagesToStorage: action
+    waitingImages: observable,
+    roomInfo: observable,
+    uploadImagesToStorage: action,
+    setWaitingImages: action,
+    deleteWaitingImages: action,
+    onHandleRoomInfoChanged: action
 })
 
 export default new AdminStore();
