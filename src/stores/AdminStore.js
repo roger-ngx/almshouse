@@ -51,7 +51,7 @@ class AdminStore {
     
                     runInAction(()=>{
                         this.uploadedImageUrls = [downloadUrl, ...this.uploadedImageUrls];
-
+                        image.status = 'done';
                         roomRef.update(set({}, `${roomType}`, firebase.firestore.FieldValue.arrayUnion(downloadUrl)));
                     });
     

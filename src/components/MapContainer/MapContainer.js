@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
-import { inject, observer } from 'mobx-react';
+import { inject } from 'mobx-react';
 import supercluster from 'points-cluster';
 import { size } from 'lodash';
+import { observer } from 'mobx-react-lite';
 
 import { markersData } from '../../assets/fakeData'; 
 
@@ -10,11 +11,10 @@ import Marker from './Marker';
 
 const MapContainer = (props) => {
   
-    const { MapStore } = props;
-    MapStore.onLoadRooms();
-    
+    const { MapStore, HomeStore } = props;
+
     let  clusters = supercluster(
-      markersData,
+      HomeStore.locations,
       {
         minZoom: 3, // min zoom to generate clusters on
         maxZoom: 15, // max zoom level to cluster the points on
@@ -30,8 +30,6 @@ const MapContainer = (props) => {
       points,
       id: `${numPoints}_${points[0].id}`,
     }));
-
-    clusters.forEach(cluster => console.log(cluster.points));
 
     return (<GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyCixUR0mtJz0qyWd0FDI1-WYEcHjqvaw5Y' }}
@@ -63,4 +61,4 @@ MapContainer.defaultProps = {
 };
 
 
-export default inject('MapStore')(observer(MapContainer));
+export default inject('MapStore', 'HomeStore')(observer(MapContainer));

@@ -1,7 +1,6 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { map, get } from 'lodash';
-import DevTools from 'mobx-react-devtools';
+import { map } from 'lodash';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { IconButton, Select, MenuItem, FormControl, InputLabel, Fab, Tooltip } from '@material-ui/core';
@@ -99,7 +98,13 @@ const Admin = ({AdminStore}) => {
                                 map(room.images, (image, subIndex) => <li key={image.name}>
                                         { image.name } - { (image.size / 1000) | 0 } kB
                                         <IconButton onClick={() => AdminStore.deleteWaitingRoomImages(index, subIndex)}>
-                                            <DeleteIcon />
+                                            {
+                                                image.status === 'done' && <DoneIcon/>
+                                            }
+
+                                            {
+                                                image.status !== 'done' && <DeleteIcon/>
+                                            }
                                         </IconButton>
                                     </li>
                                 )
@@ -109,7 +114,6 @@ const Admin = ({AdminStore}) => {
                 </Grid>
             </>)
         }
-        <DevTools />
     </div>
     )
 }
