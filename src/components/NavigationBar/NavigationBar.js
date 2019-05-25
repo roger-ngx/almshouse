@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,6 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import LoginDialog from '../../components/Login/Login';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
 const styles = {
   root: {
@@ -21,7 +24,13 @@ const styles = {
 };
 
 const NavigationBar = (props) => {
-  const { classes } = props;
+  const { LoginStore, classes } = props;
+  const [open, setOpen] = useState(false);
+
+  function handleClose(){
+    setOpen(false);
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -30,14 +39,22 @@ const NavigationBar = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            News
+            almshouse
           </Typography>
-          <Button color="inherit">Login</Button>
+          {
+            LoginStore.user.displayName && <span>Hello {LoginStore.user.displayName}</span>
+          }
+
+          {
+            !LoginStore.user.displayName && 
+            <Button color="inherit" onClick={() => setOpen(true)}>Login</Button>
+          } 
         </Toolbar>
       </AppBar>
+      <LoginDialog open={open && !LoginStore.user.displayName} onClose={handleClose}/>
     </div>
   );
 }
 
 
-export default withStyles(styles)(NavigationBar);
+export default withStyles(styles)(inject('LoginStore')(observer(NavigationBar)));

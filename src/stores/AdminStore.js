@@ -4,13 +4,18 @@ import { set, forEach } from 'lodash';
 
 class AdminStore {
     uploadedImageUrls = [];
-    waitingImages = [[]];
+    waitingRooms = [{}];
     roomInfo = {location: {}};
 
-    setWaitingImages = (index, images) => set(this.waitingImages, `[${index}]`, Array.from(images));
+    setWaitingRoomImages = (index, images) => set(this.waitingRooms, `${index}.images`, Array.from(images));
 
-    deleteWaitingImages = (index, subIndex) => {
-        this.waitingImages[index].splice(subIndex, 1);
+    setWaitingRoomType = (index, type) => {
+        set(this.waitingRooms, `${index}.type`, type);
+        console.log(this.waitingRooms);
+    }
+
+    deleteWaitingRoomImages = (index, subIndex) => {
+        this.waitingRooms[index].splice(subIndex, 1);
     }
 
     onHandleRoomInfoChanged = e => {
@@ -18,38 +23,55 @@ class AdminStore {
         set(this.roomInfo, `${prop}`, e.target.value);
     }
 
-    addWaitingImageType = () => this.waitingImages.push([]);
+    addWaitingImageType = () => this.waitingRooms.push([]);
 
-    uploadImagesToStorage = (images) => {
+    saveRoomToFirebase = async () => {
+        try{
+            const roomRef = firebase.firestore().collection('houses').doc(this.roomInfo.name);
+            await roomRef.set(this.roomInfo, {merge: true})
+
+            this.uploadImagesToStorage();
+        }catch(e){
+            console.log('saveRoomToFirebase', e);
+        }
+    }
+
+    uploadImagesToStorage = async() => {
         const storageRef = firebase.storage().ref();
+        const roomRef = firebase.firestore().collection('houses').doc(this.roomInfo.name);
 
-        forEach(images, async (image) => {
-            const imageRef = storageRef.child(`images/${image.name}`);
-            try{
-                const snapshot = await imageRef.put(image)
-            
-                const downloadUrl = await snapshot.ref.getDownloadURL();
+        forEach(this.waitingRooms, images => {
+            const roomType = images.type;
+            forEach(images.images, async(image) => {
+                const imageRef = storageRef.child(`almshouses/houses/${this.roomInfo.name}/${images.type}/${image.name}`);
+                try{
+                    const snapshot = await imageRef.put(image)
+                
+                    const downloadUrl = await snapshot.ref.getDownloadURL();
+    
+                    runInAction(()=>{
+                        this.uploadedImageUrls = [downloadUrl, ...this.uploadedImageUrls];
 
-                runInAction(()=>{
-                    this.uploadedImageUrls = [downloadUrl, ...this.uploadedImageUrls];
-                    console.log(this.uploadedImageUrls);
-                });
-
-            }catch(err){
-                console.log(err);
-            }
+                        roomRef.update(set({}, `${roomType}`, firebase.firestore.FieldValue.arrayUnion(downloadUrl)));
+                    });
+    
+                }catch(err){
+                    console.log(err);
+                }
+            });
         });
     }
 }
 
 decorate(AdminStore, {
     uploadedImageUrls: observable,
-    waitingImages: observable,
+    waitingRooms: observable,
     roomInfo: observable,
     uploadImagesToStorage: action,
     setWaitingImages: action,
     deleteWaitingImages: action,
-    onHandleRoomInfoChanged: action
+    onHandleRoomInfoChanged: action,
+    saveRoomToFirebase: action
 })
 
 export default new AdminStore();

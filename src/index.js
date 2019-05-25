@@ -12,12 +12,14 @@ import NavigationBar from './components/NavigationBar/NavigationBar';
 import MapStore from './stores/MapStore';
 import Admin from './pages/Admin/Admin';
 import AdminStore from './stores/AdminStore';
+import LoginStore from './stores/LoginStore';
 
 ReactDOM.render(
     <Provider 
         HomeStore={HomeStore}
         MapStore={MapStore}
         AdminStore={AdminStore}
+        LoginStore={LoginStore}
     >
         <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
             <div style={{width: '100%'}}>

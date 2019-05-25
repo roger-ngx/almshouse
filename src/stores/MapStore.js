@@ -11,6 +11,14 @@ class MapStore {
         forEach(docs.docs, doc => console.log(doc.data()));
     }
 
+    onLoadRooms = async () => {
+        const houseDocs = await firebase.firestore().collection('houses').get();
+
+        forEach(houseDocs.docs, doc => {
+            console.log(doc.data());
+        });
+    }
+
     onChange = e => this.mapProps = e;
 }
 

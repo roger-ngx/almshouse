@@ -9,8 +9,10 @@ import { markersData } from '../../assets/fakeData';
 import Marker from './Marker';
 
 const MapContainer = (props) => {
+  
     const { MapStore } = props;
-
+    MapStore.onLoadRooms();
+    
     let  clusters = supercluster(
       markersData,
       {
