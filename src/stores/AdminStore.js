@@ -4,18 +4,20 @@ import { set, forEach } from 'lodash';
 
 class AdminStore {
     uploadedImageUrls = [];
-    waitingRooms = [{}];
+    roomsImages = [{}];
     roomInfo = {location: {}};
 
-    setWaitingRoomImages = (index, images) => set(this.waitingRooms, `${index}.images`, Array.from(images));
+    setWaitingRoomImages = (index, images) => set(this.roomsImages, `${index}.images`, Array.from(images));
 
     setWaitingRoomType = (index, type) => {
-        set(this.waitingRooms, `${index}.type`, type);
-        console.log(this.waitingRooms);
+        set(this.roomsImages, `${index}.type`, type);
+        console.log(this.roomsImages);
     }
 
+    setRoomInfo = room => this.roomInfo = room;
+
     deleteWaitingRoomImages = (index, subIndex) => {
-        this.waitingRooms[index].splice(subIndex, 1);
+        this.roomsImages[index].splice(subIndex, 1);
     }
 
     onHandleRoomInfoChanged = e => {
@@ -23,7 +25,7 @@ class AdminStore {
         set(this.roomInfo, `${prop}`, e.target.value);
     }
 
-    addWaitingImageType = () => this.waitingRooms.push([]);
+    addWaitingImageType = () => this.roomsImages.push([]);
 
     saveRoomToFirebase = async () => {
         try{
@@ -40,7 +42,7 @@ class AdminStore {
         const storageRef = firebase.storage().ref();
         const roomRef = firebase.firestore().collection('houses').doc(this.roomInfo.name);
 
-        forEach(this.waitingRooms, images => {
+        forEach(this.roomsImages, images => {
             const roomType = images.type;
             forEach(images.images, async(image) => {
                 const imageRef = storageRef.child(`almshouses/houses/${this.roomInfo.name}/${images.type}/${image.name}`);
@@ -52,7 +54,7 @@ class AdminStore {
                     runInAction(()=>{
                         this.uploadedImageUrls = [downloadUrl, ...this.uploadedImageUrls];
                         image.status = 'done';
-                        roomRef.update(set({}, `${roomType}`, firebase.firestore.FieldValue.arrayUnion(downloadUrl)));
+                        roomRef.set(set({updatedAt: firebase.firestore.FieldValue.serverTimestamp()}, `${roomType}.images`, firebase.firestore.FieldValue.arrayUnion(downloadUrl)), { merge: true});
                     });
     
                 }catch(err){
@@ -65,7 +67,7 @@ class AdminStore {
 
 decorate(AdminStore, {
     uploadedImageUrls: observable,
-    waitingRooms: observable,
+    roomsImages: observable,
     roomInfo: observable,
     uploadImagesToStorage: action,
     setWaitingImages: action,

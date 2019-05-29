@@ -1,5 +1,6 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 import { map } from 'lodash';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -10,11 +11,16 @@ import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 
 import './Admin.scss'
+import HouseList from '../../components/HouseList/HouseList';
 
 const Admin = ({AdminStore}) => {
 
-    return (
-    <div className='main-content'>
+    return (<>
+    {/* <nav>
+        <DrawerMenu />
+    </nav> */}
+
+    <main className='main-content'>
         <div className='fab-group'>
             <Tooltip title='Save to server'>
                 <Fab style={{marginRight: '20px', backgroundColor: 'green', color: 'white'}}>
@@ -69,7 +75,7 @@ const Admin = ({AdminStore}) => {
             </IconButton>
         </div>
         {
-            AdminStore.waitingRooms.map( (room, index) => <>
+            AdminStore.roomsImages.map( (room, index) => <>
                 
                 <Grid container spacing={8}>
                     <Grid item xs={4}>
@@ -114,7 +120,10 @@ const Admin = ({AdminStore}) => {
                 </Grid>
             </>)
         }
-    </div>
+
+        <HouseList />
+    </main>
+    </>
     )
 }
 

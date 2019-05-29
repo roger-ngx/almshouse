@@ -13,6 +13,8 @@ const MapContainer = (props) => {
   
     const { MapStore, HomeStore } = props;
 
+    console.log(HomeStore.locations);
+
     let  clusters = supercluster(
       HomeStore.locations,
       {
@@ -32,7 +34,7 @@ const MapContainer = (props) => {
     }));
 
     return (<GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyCixUR0mtJz0qyWd0FDI1-WYEcHjqvaw5Y' }}
+        bootstrapURLKeys={{ key: 'AIzaSyBlqdt2KhGQfEB2wGQ0mvn3nKphR5EehZY' }}
         options={props.options}
         hoverDistance={props.hoverDistance}
         center={props.center}
@@ -42,7 +44,7 @@ const MapContainer = (props) => {
         yesIWantToUseGoogleMapApiInternals
     >
         {
-          clusters.map(({ id, numPoints, ...markerProps }) => <Marker {...markerProps} />)
+          clusters.map(({ id, numPoints, ...markerProps }) => <Marker key={id} {...markerProps} />)
         }
     </GoogleMapReact>)
   }

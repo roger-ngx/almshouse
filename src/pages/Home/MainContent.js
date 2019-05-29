@@ -27,7 +27,7 @@ const MainContent = (props)=> {
         </div>
         <div className={classes.searchContent}>
             <SearchOption />
-            <Grid container spacing={32}>
+            <Grid container spacing={2}>
                 <Grid item xs={6}>
                     <Link to='/houses'>
                         <RoomCard />

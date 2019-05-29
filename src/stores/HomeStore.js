@@ -5,6 +5,7 @@ import { decorate, computed, action, observable } from 'mobx';
 class HomeStore {
 
     houses = [];
+    selectedHouse = null;
 
     categoryList = [
         { mainText: '대학인근', subText: '막차 걱정 없는'},
@@ -21,6 +22,8 @@ class HomeStore {
         this.houses = map(houseDocs.docs, doc => doc.data());
     }
 
+    setSelectedHouse = house => this.selectedHouse = house;
+
     get locations() {
         return map(this.houses, house => ({
             id: house.name,
@@ -32,6 +35,7 @@ class HomeStore {
 
 decorate(HomeStore, ({
     houses: observable,
+    selectedHouse: observable,
     locations: computed,
     onLoadRooms: action
 }))
