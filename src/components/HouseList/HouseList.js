@@ -12,7 +12,7 @@ const RoomList = ({HomeStore, AdminStore}) => {
     return (<List>
         {
             HomeStore.houses.map(house => <><ListItem key={house.name} 
-                onClick={AdminStore.setRoomInfo.bind(null, house)}>
+                onClick={AdminStore.setHouseInfo.bind(null, house)}>
                 <ListItemText>
                     {house.name}
                 </ListItemText>

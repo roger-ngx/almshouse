@@ -1,12 +1,12 @@
 import React from 'react';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
-import { map } from 'lodash';
+import { map, isObject } from 'lodash';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import { IconButton, Select, MenuItem, FormControl, InputLabel, Fab, Tooltip } from '@material-ui/core';
+import { IconButton, Select, MenuItem, FormControl, InputLabel, Fab, Tooltip, FormHelperText } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
+import CancelIcon from '@material-ui/icons/Cancel';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 
@@ -38,33 +38,33 @@ const Admin = ({AdminStore}) => {
                 <TextField label='Room name' style={{width: '100%'}} 
                 name='name'
                 onChange={AdminStore.onHandleRoomInfoChanged}
-                value={AdminStore.roomInfo.name || ''}/>
+                value={AdminStore.houseInfo.name || ''}/>
             </Grid>
             <Grid item xs={12}>
                 <TextField label='Address' style={{width: '100%'}} 
                 name='address'
                 onChange={AdminStore.onHandleRoomInfoChanged}
-                value={AdminStore.roomInfo.address || ''}/>
+                value={AdminStore.houseInfo.address || ''}/>
             </Grid>
             <Grid item xs={6}>
                 <TextField label='Lat'  style={{width: '100%'}} 
                 name='location.lat'
                 type='number'
                 onChange={AdminStore.onHandleRoomInfoChanged}
-                value={AdminStore.roomInfo.location.lat || ''}/>
+                value={AdminStore.houseInfo.location.lat || ''}/>
             </Grid>
             <Grid item xs={6}>
                 <TextField label='Long'  style={{width: '100%'}} 
                 name='location.lng'
                 type='number'
                 onChange={AdminStore.onHandleRoomInfoChanged}
-                value={AdminStore.roomInfo.location.lng || ''}/>
+                value={AdminStore.houseInfo.location.lng || ''}/>
             </Grid>
             <Grid item xs={12}>
                 <TextField label='Description' multiline  style={{width: '100%'}} 
                 name='description'
                 onChange={AdminStore.onHandleRoomInfoChanged}
-                value={AdminStore.roomInfo.description || ''}/>
+                value={AdminStore.houseInfo.description || ''}/>
             </Grid>
         </Grid>
 
@@ -75,7 +75,7 @@ const Admin = ({AdminStore}) => {
             </IconButton>
         </div>
         {
-            AdminStore.roomsImages.map( (room, index) => <>
+            AdminStore.rooms.map( (room, index) => <>
                 
                 <Grid container spacing={8}>
                     <Grid item xs={4}>
@@ -95,27 +95,28 @@ const Admin = ({AdminStore}) => {
                     </Grid>
                     <Grid item xs={8}>
                         <Grid container alignContent='flex-end' style={{height: '100%'}}>
-                            <input type='file' onChange={e => AdminStore.setWaitingRoomImages(index, e.target.files)} multiple/>
+                            <input 
+                                type='file'
+                                onChange={e => AdminStore.setWaitingRoomImages(index, e.target.files)}
+                                multiple
+                                disabled={!room.type}
+                            />
                         </Grid>
                     </Grid>
-                    <div>
-                        <ul>
-                            {
-                                map(room.images, (image, subIndex) => <li key={image.name}>
-                                        { image.name } - { (image.size / 1000) | 0 } kB
-                                        <IconButton onClick={() => AdminStore.deleteWaitingRoomImages(index, subIndex)}>
-                                            {
-                                                image.status === 'done' && <DoneIcon/>
-                                            }
-
-                                            {
-                                                image.status !== 'done' && <DeleteIcon/>
-                                            }
-                                        </IconButton>
-                                    </li>
-                                )
-                            }
-                        </ul>
+                    <div style={{display: 'flex', width: '100%', flexDirection:'row', justifyContent: 'center'}}>
+                        {
+                            map(room.images, (image, index) => <div key={isObject(image) ? image.name : image} style={{position: 'relative'}}>
+                                    <img 
+                                        style={{height: '100px', width: '100px', margin: '0 10px 10px'}} 
+                                        src={ isObject(image) ? URL.createObjectURL(image) : image}
+                                        alt=''
+                                    />
+                                    <div style={{position: 'absolute', top: -12, right: 0}}>
+                                        <CancelIcon onClick={AdminStore.removeRoomImage.bind(null, room.type, index)}/>
+                                    </div>
+                                </div>
+                            )
+                        }
                     </div>
                 </Grid>
             </>)
