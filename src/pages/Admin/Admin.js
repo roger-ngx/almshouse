@@ -29,7 +29,7 @@ const Admin = ({AdminStore}) => {
             </Tooltip>
             <Tooltip title='Clear all info'>
                 <Fab style={{backgroundColor: 'red', color: 'white'}}>
-                    <ClearIcon/>
+                    <ClearIcon onClick={AdminStore.clearHouseInfo}/>
                 </Fab>
             </Tooltip>
         </div>
@@ -105,13 +105,24 @@ const Admin = ({AdminStore}) => {
                     </Grid>
                     <div style={{display: 'flex', width: '100%', flexDirection:'row', justifyContent: 'center'}}>
                         {
-                            map(room.images, (image, index) => <div key={isObject(image) ? image.name : image} style={{position: 'relative'}}>
-                                    <img 
-                                        style={{height: '100px', width: '100px', margin: '0 10px 10px'}} 
-                                        src={ isObject(image) ? URL.createObjectURL(image) : image}
-                                        alt=''
-                                    />
-                                    <div style={{position: 'absolute', top: -12, right: 0}}>
+                            map(room.images, (image, index) => 
+                                <div 
+                                    key={isObject(image) ? image.name : image} 
+                                    style={{position: 'relative', height: '100px', width: '100px', margin: '0 10px'}}
+                                >
+                                    <div style={{zIndex: 1, position: 'absolute', top: '40%', right: '20px'}}>
+                                        <span>Loading...</span>
+                                    </div>
+
+                                    <div style={{zIndex: 2, position: 'absolute', top: 0, left: 0}}>
+                                        <img 
+                                            style={{height: '100px', width: '100px'}} 
+                                            src={ isObject(image) ? URL.createObjectURL(image) : image}
+                                            alt=''
+                                        />
+                                    </div>
+
+                                    <div style={{position: 'absolute', top: -12, right: -12, zIndex: 3}}>
                                         <CancelIcon onClick={AdminStore.removeRoomImage.bind(null, room.type, index)}/>
                                     </div>
                                 </div>
