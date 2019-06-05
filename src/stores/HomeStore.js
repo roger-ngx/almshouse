@@ -1,10 +1,11 @@
 import firebase from '../config/Firebase';
-import { map } from 'lodash';
+import { map, reduce, concat, includes, filter } from 'lodash';
 import { decorate, computed, action, observable } from 'mobx';
 
 class HomeStore {
 
     houses = [];
+    houseClusters = [];
     selectedHouse = null;
 
     categoryList = [
@@ -22,6 +23,14 @@ class HomeStore {
         this.houses = map(houseDocs.docs, doc => doc.data());
     }
 
+    setVisibleHouses = async (clusters) => {
+        const houseNames = reduce(clusters, (ids, cluster) => {
+            return concat(ids, map(cluster.points, point => point.id));
+        }, []);
+
+        this.houseClusters = filter(this.houses, house => includes(houseNames, house.name));
+    }
+
     setSelectedHouse = house => this.selectedHouse = house;
 
     get locations() {
@@ -36,6 +45,7 @@ class HomeStore {
 decorate(HomeStore, ({
     houses: observable,
     selectedHouse: observable,
+    houseClusters: observable,
     locations: computed,
     onLoadRooms: action
 }))

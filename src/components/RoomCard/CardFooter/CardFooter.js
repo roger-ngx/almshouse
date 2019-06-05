@@ -4,9 +4,9 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 import './CardFooter.scss';
 
-const CardFooter = () => <div className='footer_container'>
+const CardFooter = ({house}) => <div className='footer_container'>
    <div className='footer_text_line'>
-        <span className='name'>73호점(중구)</span>
+        <span className='name'>{ house.name }</span>
         <span className='footer_btn name'>
             <FavoriteBorderIcon />
         </span>

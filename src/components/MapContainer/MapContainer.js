@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { inject } from 'mobx-react';
 import supercluster from 'points-cluster';
-import { size } from 'lodash';
+import { size, map } from 'lodash';
 import { observer } from 'mobx-react-lite';
 
 import { markersData } from '../../assets/fakeData'; 
@@ -13,8 +13,6 @@ const MapContainer = (props) => {
   
     const { MapStore, HomeStore } = props;
 
-    console.log(HomeStore.locations);
-
     let  clusters = supercluster(
       HomeStore.locations,
       {
@@ -24,6 +22,8 @@ const MapContainer = (props) => {
       }
     );
     clusters = size(MapStore.mapProps) ? clusters(MapStore.mapProps) : [];
+
+    HomeStore.setVisibleHouses(clusters);
 
     clusters = clusters.map(({ wx, wy, numPoints, points }) => ({
       lat: wy,

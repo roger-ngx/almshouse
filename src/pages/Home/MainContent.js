@@ -2,6 +2,9 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
+import { map } from 'lodash';
 
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SearchOption from '../../components/SearchOption/SearchOption';
@@ -19,7 +22,7 @@ const styles = {
     }
 }
 const MainContent = (props)=> {
-    const { classes } = props;
+    const { classes, HomeStore } = props;
 
     return <>
         <div className={classes.searchBar}>
@@ -28,23 +31,16 @@ const MainContent = (props)=> {
         <div className={classes.searchContent}>
             <SearchOption />
             <Grid container spacing={2}>
-                <Grid item xs={6}>
-                    <Link to='/houses'>
-                        <RoomCard />
-                    </Link>
-                </Grid>
-                <Grid item xs={6}>
-                    <RoomCard />
-                </Grid>
-                <Grid item xs={6}>
-                    <RoomCard />
-                </Grid>
-                <Grid item xs={6}>
-                    <RoomCard />
-                </Grid>
+                {
+                    map(HomeStore.houseClusters, house => <Grid key={house.name} item xs={6}>
+                        <Link to={`/houses/${house.name}`}>
+                            <RoomCard house={house}/>
+                        </Link>
+                    </Grid>)
+                }
             </Grid>
         </div>
     </>
 }
 
-export default withStyles(styles)(MainContent);
+export default inject('HomeStore')(withStyles(styles)(observer(MainContent)));
