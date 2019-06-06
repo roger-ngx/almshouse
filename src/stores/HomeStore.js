@@ -1,5 +1,5 @@
 import firebase from '../config/Firebase';
-import { map, reduce, concat, includes, filter } from 'lodash';
+import { map, reduce, concat, includes, filter, find } from 'lodash';
 import { decorate, computed, action, observable } from 'mobx';
 
 class HomeStore {
@@ -31,7 +31,19 @@ class HomeStore {
         this.houseClusters = filter(this.houses, house => includes(houseNames, house.name));
     }
 
-    setSelectedHouse = house => this.selectedHouse = house;
+    setSelectedHouse = id =>{
+        this.selectedHouse = find(this.houseClusters, house => house.name === id);
+        
+        !this.selectedHouse && 
+        firebase.firestore()
+        .collection('houses')
+        .doc(id)
+        .get()
+        .then((doc) => {
+            this.selectedHouse = doc.data();
+            console.log(doc.data());
+        });
+    }
 
     get locations() {
         return map(this.houses, house => ({

@@ -1,70 +1,71 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import ImageGallery from 'react-image-gallery';
-import { observer } from 'mobx-react-lite';
+import { inject, observer } from 'mobx-react';
+import { map, get, keys } from 'lodash';
 
 import './HouseDetail.scss'
 import { observable } from 'mobx';
 
-const images = [
-    {
-      original: 'http://lorempixel.com/1000/600/nature/1/',
-      thumbnail: 'http://lorempixel.com/250/150/nature/1/',
-    },
-    {
-      original: 'http://lorempixel.com/1000/600/nature/2/',
-      thumbnail: 'http://lorempixel.com/250/150/nature/2/'
-    },
-    {
-      original: 'http://lorempixel.com/1000/600/nature/3/',
-      thumbnail: 'http://lorempixel.com/250/150/nature/3/'
-    }
-  ]
-
-const faq = React.createRef();
-const pointIntro = React.createRef();
-const roomIntro = React.createRef();
-const roomDetail = React.createRef();
-
 let currentSection = observable.box(1);
-// let lastScrollPosition = 0;
 
-const HouseDetail = () => {
+class HouseDetail extends React.Component {
+    
+    constructor(props){
+        super(props);
+        
+        const { HomeStore, match } = props;
+        HomeStore.setSelectedHouse(match.params.id);
+    }
+    
+    render() {
+    const images = map(get(this.props.HomeStore.selectedHouse, ['rooms', 'Living Room', 'images']),
+            image => ({
+                original: image,
+                thumbnail: image,
+            }));
 
-    // function handleScroll(){
-    //     // console.log(lastScrollPosition, scrollPosition);
-    //     let scrollPosition = 0;
-
-    //     if(window.pageYOffset < lastScrollPosition){
-    //         scrollPosition = window.pageYOffset;//scroll up
-    //     }else{
-    //         scrollPosition = window.pageYOffset + window.innerHeight;//scroll down
-    //     }
-
-    //     lastScrollPosition = window.pageYOffset;
-
-    //     const faqPosition = faq.current.offsetTop;
-    //     const pointPosition = pointIntro.current.offsetTop;
-    //     const roomIntroPosition = roomIntro.current.offsetTop;
-    //     const roomDetailPosition = roomDetail.current.offsetTop;
-
-
-    //     if(scrollPosition >= pointPosition) currentSection.set(1);
-    //     if(scrollPosition >= roomIntroPosition) currentSection.set(2);
-    //     if(scrollPosition >= roomDetailPosition) currentSection.set(3);
-    //     if(scrollPosition >= faqPosition) currentSection.set(4);
-    // }
-
-    // useEffect(() => {
-    //     window.addEventListener('scroll', handleScroll);
-
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll);
-    //     };
-    // });
+    const roomTypes = keys(get(this.props.HomeStore.selectedHouse, 'rooms'));
 
     return (<div style={{padding: '20px 20% 0'}}>
-    <div style={{paddingBottom: '20px'}}>
-        <ImageGallery items={images} />
+    
+    <div style={{paddingBottom: '20px', position: 'relative', minHeight: '100px'}}>
+        {
+            !!roomTypes.length &&
+            <div style={{
+                    zIndex: 1,
+                    position: 'absolute',
+                    top: 20,
+                    left: 20,
+                    display: 'flex',
+                    flexDirection: 'row'
+                }}
+            >
+                {
+                    map(roomTypes, roomType => <div 
+                        key={{roomType}}
+                        style={{
+                            width: '10rem',
+                            height: '3rem',
+                            lineHeight: '3rem',
+                            verticalAlign: 'middle',
+                            backgroundColor: '#FE605C',
+                            color: 'white',
+                            fontWeight: 700,
+                            textAlign: 'center'
+                        }}
+                    >
+                        <span>{roomType}</span>
+                    </div>)
+                }
+            </div>
+        }
+
+        <ImageGallery 
+            items={images}
+            showFullscreenButton={false}
+            showPlayButton={false}
+            showBullets={true}
+        />
     </div>
     <div className='home-section'>
         <a href='#point-intro' onClick={() => currentSection.set(1)} className={`house-section-btn ${currentSection.get() === 1 ? 'house-section-btn-active' : ''}`}>
@@ -81,7 +82,7 @@ const HouseDetail = () => {
         </a>
     </div>
     {currentSection.get() === 1 && <>
-    <div id='point-intro' ref={pointIntro}  style={{marginTop: '20px'}}>
+    <div id='point-intro' style={{marginTop: '20px'}}>
         우주 6호점의 특징은 한 마디로 #가족 #패밀리쉽 #정 이 넘치는 곳이에요. 3개층으로 이뤄진 공간에서 남자셋 여자셋이 가능한 공간이랍니다!<br/>
         총 10명의 우주인이 함께 모여있는 이곳은 개별 공간으로 잘 구분이 되어있어 따로 또 같이가 충분히 이뤄질 수 있답니다. 우주인들만의 전용 테라스와 마당도 있고요, 함께 요리를 해먹고 또 함께 놀러 다니기에도 좋답니다.<br/> 
         위아래로 계단을 오가며 쌓이는 우주인들간의 정이 이 집의 매력 포인트! <br/>
@@ -103,7 +104,7 @@ const HouseDetail = () => {
     </>
     }
     {currentSection.get() === 2 &&
-    <div id='room-intro' ref={roomIntro} style={{marginTop: '20px'}}>
+    <div id='room-intro' style={{marginTop: '20px'}}>
         - 운영관리비와 선불공과금은 매월 별도로 납부해주셔야 합니다. [자세히 알아보기]<br/>
         - 투어신청은 최대 두 지점까지만 가능합니다.<br/>
         - 투어신청은 입주가능일 45일 전부터 가능합니다.<br/>
@@ -111,7 +112,7 @@ const HouseDetail = () => {
     </div>
     }
     {currentSection.get() === 3&& <>
-    <div id='room-detail' ref={roomDetail} style={{marginTop: '20px'}}>
+    <div id='room-detail' style={{marginTop: '20px'}}>
         지하철<br/>
         미아사거리역 - 4호선<br/>
         대학교<br/>
@@ -180,7 +181,7 @@ const HouseDetail = () => {
     </>
     }
     {currentSection.get() === 4 && <>
-    <div id='faq' ref={faq} style={{marginTop: '20px'}}>
+    <div id='faq' style={{marginTop: '20px'}}>
         1. 입주신청서를 제출했습니다. 이후 과정은 어떻게 되나요?<br/>
         2. 보증금과 월세 외에 다른 비용에는 무엇이 있나요?<br/>
         3. 공과금은 어떻게 처리하나요?<br/>
@@ -212,5 +213,6 @@ const HouseDetail = () => {
     }
 </div>)
 }
+}
 
-export default observer(HouseDetail);
+export default inject('HomeStore')(observer(HouseDetail));

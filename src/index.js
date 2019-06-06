@@ -28,7 +28,7 @@ ReactDOM.render(
             <div style={{flex: 1, overflow: 'scroll'}}>
                 <Router>
                     <Route exact path='/' component={Home} />
-                    <Route path='/houses' component={HouseDetail} />
+                    <Route path='/houses/:id' component={HouseDetail} />
                     <Route path='/admin' component={Admin} />
                 </Router>
             </div>
