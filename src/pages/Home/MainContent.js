@@ -33,7 +33,7 @@ const MainContent = (props)=> {
             <Grid container spacing={2}>
                 {
                     map(HomeStore.houseClusters, house => <Grid key={house.name} item xs={6}>
-                        <Link to={`/houses/${house.name}`}>
+                        <Link target="_blank" to={`/houses/${house.name}`}>
                             <RoomCard house={house}/>
                         </Link>
                     </Grid>)
