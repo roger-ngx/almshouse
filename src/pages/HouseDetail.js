@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ImageGallery from 'react-image-gallery';
 import { inject, observer } from 'mobx-react';
 import { map, get, keys } from 'lodash';
@@ -9,7 +9,8 @@ import { observable } from 'mobx';
 let currentSection = observable.box(1);
 
 class HouseDetail extends React.Component {
-    
+    selectedRoom = observable.box(0);
+
     constructor(props){
         super(props);
         
@@ -18,13 +19,14 @@ class HouseDetail extends React.Component {
     }
     
     render() {
-    const images = map(get(this.props.HomeStore.selectedHouse, ['rooms', 'Living Room', 'images']),
+        const roomTypes = keys(get(this.props.HomeStore.selectedHouse, 'rooms'));
+
+    const images = map(get(this.props.HomeStore.selectedHouse, ['rooms', roomTypes[this.selectedRoom.get()], 'images']),
             image => ({
                 original: image,
                 thumbnail: image,
             }));
 
-    const roomTypes = keys(get(this.props.HomeStore.selectedHouse, 'rooms'));
 
     return (<div style={{padding: '20px 20% 0'}}>
     
@@ -41,18 +43,21 @@ class HouseDetail extends React.Component {
                 }}
             >
                 {
-                    map(roomTypes, roomType => <div 
-                        key={{roomType}}
+                    map(roomTypes, (roomType, index) => <div 
+                        key={roomType}
                         style={{
                             width: '10rem',
                             height: '3rem',
                             lineHeight: '3rem',
                             verticalAlign: 'middle',
-                            backgroundColor: '#FE605C',
-                            color: 'white',
-                            fontWeight: 700,
-                            textAlign: 'center'
+                            backgroundColor: this.selectedRoom.get() === index ? '#FE605C' : '#fff',
+                            color: this.selectedRoom.get() === index ? 'white' : 'black',
+                            fontWeight: this.selectedRoom.get() === index ? 700 : 500,
+                            textAlign: 'center',
+                            cursor: 'pointer',
+                            border: 'solid 1px #eee'
                         }}
+                        onClick={() => this.selectedRoom.set(index)}
                     >
                         <span>{roomType}</span>
                     </div>)
