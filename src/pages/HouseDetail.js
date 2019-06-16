@@ -14,17 +14,21 @@ class HouseDetail extends React.Component {
     constructor(props){
         super(props);
         
+
         const { HomeStore, match } = props;
         HomeStore.setSelectedHouse(match.params.id);
     }
     
     render() {
+const { innerWidth } = window;
+
         const roomTypes = keys(get(this.props.HomeStore.selectedHouse, 'rooms'));
 
     const images = map(get(this.props.HomeStore.selectedHouse, ['rooms', roomTypes[this.selectedRoom.get()], 'images']),
             image => ({
                 original: image,
                 thumbnail: image,
+                size: 'height: 500px'
             }));
 
 
@@ -65,12 +69,16 @@ class HouseDetail extends React.Component {
             </div>
         }
 
-        <ImageGallery 
-            items={images}
-            showFullscreenButton={false}
-            showPlayButton={false}
-            showBullets={true}
-        />
+        {/* <div style={{height: innerWidth * 0.8 * 0.6 + 'px', maxHeight: innerWidth * 0.8 * 0.6 + 'px'}}> */}
+            <ImageGallery 
+                items={images}
+                showFullscreenButton={false}
+                showPlayButton={false}
+                showBullets={true}
+                defaultImage={'images/oops.jpg'}
+                lazyLoad={true}
+            />
+        {/* </div> */}
     </div>
     <div className='home-section'>
         <a href='#point-intro' onClick={() => currentSection.set(1)} className={`house-section-btn ${currentSection.get() === 1 ? 'house-section-btn-active' : ''}`}>

@@ -1,19 +1,25 @@
 import React from 'react';
-import { Dialog, List, ListItem, ListItemText } from '@material-ui/core';
+import { Dialog, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import { inject, observer } from 'mobx-react';
 
 const LoginDialog = ({LoginStore, ...others}) => {
 
     return (<Dialog {...others}>
-        <List>
+        <List style={{padding: 0}}>
             <ListItem button onClick={LoginStore.login.bind(null, 'facebook')}>
+                <ListItemIcon>
+                    <img src={'images/icons/icons8-facebook-circled-48.png'} alt=''/>
+                </ListItemIcon>
                 <ListItemText>
-                    Facebook
+                    Login with Facebook
                 </ListItemText>
             </ListItem>
             <ListItem button onClick={LoginStore.login.bind(null, 'google')}>
+                <ListItemIcon>
+                    <img src={'images/icons/icons8-google-48.png'} alt=''/>
+                </ListItemIcon>
                 <ListItemText>
-                    Google
+                    Login with Google
                 </ListItemText>
             </ListItem>
         </List>
