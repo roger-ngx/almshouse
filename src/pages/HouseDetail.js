@@ -1,8 +1,13 @@
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
 import { inject, observer } from 'mobx-react';
-import { map, get, keys, mapKeys } from 'lodash';
+import { map, get, keys } from 'lodash';
 import { observable } from 'mobx';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 import './HouseDetail.scss'
 
@@ -93,28 +98,32 @@ class HouseDetail extends React.Component {
             {
                 currentSection.get() === 1 &&
                 <div id='point-intro' style={{marginTop: '20px'}}>
-                    <table>
-                        <tr>
-                            <th>이름</th>
-                            <th>성별</th>
-                            <th>타입</th>
-                            <th>면적</th>
-                            <th>보증금</th>
-                            <th>월세</th>
-                            <th>입주가능일</th>
-                        </tr>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>이름</TableCell>
+                                <TableCell>성별</TableCell>
+                                <TableCell>타입</TableCell>
+                                <TableCell>면적</TableCell>
+                                <TableCell>보증금</TableCell>
+                                <TableCell>월세</TableCell>
+                                <TableCell>입주가능일</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
                         {
-                            map(this.props.HomeStore.roomsDetail, room => <tr>
-                                <td>{room.name}</td>
-                                <td>{room.for}</td>
-                                <td>{room.size}</td>
-                                <td>{room.area}</td>
-                                <td>{room.guarantee_money}</td>
-                                <td>{room.monthly_fee}</td>
-                                <td>{room.available_time}</td>
-                            </tr>)
+                            map(this.props.HomeStore.roomsDetail, room => <TableRow>
+                                <TableCell>{room.name}</TableCell>
+                                <TableCell>{room.for}</TableCell>
+                                <TableCell>{room.size}</TableCell>
+                                <TableCell>{room.area}</TableCell>
+                                <TableCell>{room.guarantee_money}</TableCell>
+                                <TableCell>{room.monthly_fee}</TableCell>
+                                <TableCell>{room.available_time}</TableCell>
+                            </TableRow>)
                         }
-                    </table>
+                        </TableBody>
+                    </Table>
                 </div>
             }
             {

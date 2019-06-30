@@ -1,0 +1,26 @@
+@import './assets/variables.scss';
+
+html {
+    @media (max-width: 480px){
+        font-size: 10px;
+    }
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: $font-family;
+}
+
+a {
+    text-decoration: none
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+#root {
+    height: 100%;
+}

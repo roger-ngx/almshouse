@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Home from './pages/Home';
+import House from './pages/House/House';
+import HouseMobile from './pages/House/mobile/HouseMobile';
 import * as serviceWorker from './serviceWorker';
 import HomeStore from './stores/HomeStore';
 import HouseDetail from './pages/HouseDetail';
@@ -13,6 +14,16 @@ import MapStore from './stores/MapStore';
 import Admin from './pages/Admin/Admin';
 import AdminStore from './stores/AdminStore';
 import LoginStore from './stores/LoginStore';
+import './index.scss';
+
+const isMobile = (navigator.userAgent.match(/Android/i)
+    || navigator.userAgent.match(/webOS/i)
+    || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i)
+    || navigator.userAgent.match(/iPod/i)
+    || navigator.userAgent.match(/BlackBerry/i)
+    || navigator.userAgent.match(/Windows Phone/i)
+    );
 
 ReactDOM.render(
     <Provider 
@@ -27,7 +38,7 @@ ReactDOM.render(
             </div>
             <div style={{flex: 1, overflow: 'scroll'}}>
                 <Router>
-                    <Route exact path='/' component={Home} />
+                    <Route exact path='/' component={isMobile ? HouseMobile : House} />
                     <Route path='/houses/:id' component={HouseDetail} />
                     <Route path='/admin' component={Admin} />
                 </Router>

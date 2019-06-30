@@ -7,6 +7,7 @@ class HomeStore {
     houses = [];
     houseClusters = [];
     selectedHouse = null;
+    isShowHouseList = false;
 
     categoryList = [
         { mainText: '대학인근', subText: '막차 걱정 없는'},
@@ -29,6 +30,11 @@ class HomeStore {
         }, []);
 
         this.houseClusters = filter(this.houses, house => includes(houseNames, house.name));
+    };
+
+    setShowingHouseList = value => {
+        this.isShowHouseList = value;
+        console.log(this.isShowHouseList);
     }
 
     setSelectedHouse = id =>{
@@ -65,6 +71,7 @@ decorate(HomeStore, ({
     houses: observable,
     selectedHouse: observable,
     houseClusters: observable,
+    isShowHouseList: observable,
     locations: computed,
     roomsDetail: computed,
     onLoadRooms: action

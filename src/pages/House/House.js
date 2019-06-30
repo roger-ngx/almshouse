@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 
-import './Home.scss';
-import CategoryList from './Home/CategoryList';
-import MapContainer from '../components/MapContainer/MapContainer';
-import MainContent from './Home/MainContent';
+import './House.scss';
+import CategoryList from './CategoryList';
+import MapContainer from '../../components/MapContainer/MapContainer';
+import MainContent from './MainContent';
 
 const Home = ({HomeStore}) => {
 

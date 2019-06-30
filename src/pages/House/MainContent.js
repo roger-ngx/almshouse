@@ -25,11 +25,11 @@ const MainContent = (props)=> {
     const { classes, HomeStore } = props;
 
     return <>
-        <div className={classes.searchBar}>
+        {/* <div className={classes.searchBar}>
             <SearchBar />
-        </div>
+        </div> */}
         <div className={classes.searchContent}>
-            <SearchOption />
+            {/* <SearchOption /> */}
             <Grid container spacing={2}>
                 {
                     map(HomeStore.houseClusters, house => <Grid key={house.name} item xs={6}>
