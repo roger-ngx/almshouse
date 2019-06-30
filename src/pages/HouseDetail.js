@@ -34,33 +34,19 @@ class HouseDetail extends React.Component {
             }));
 
 
-        return <div style={{padding: '20px 20% 0'}}>
+        return <div className='house-detail-container'>
             <div style={{paddingBottom: '20px', position: 'relative', minHeight: '100px'}}>
                 {
                     !!roomTypes.length &&
-                    <div style={{
-                            zIndex: 1,
-                            position: 'absolute',
-                            top: 20,
-                            left: 20,
-                            display: 'flex',
-                            flexDirection: 'row'
-                        }}
-                    >
+                    <div className='room-btn-group'>
                         {
-                            map(roomTypes, (roomType, index) => <div 
+                            map(roomTypes, (roomType, index) => <div
+                                className='room-btn'
                                 key={roomType}
                                 style={{
-                                    width: '10rem',
-                                    height: '3rem',
-                                    lineHeight: '3rem',
-                                    verticalAlign: 'middle',
                                     backgroundColor: this.selectedRoom.get() === index ? '#FE605C' : '#fff',
                                     color: this.selectedRoom.get() === index ? 'white' : 'black',
                                     fontWeight: this.selectedRoom.get() === index ? 700 : 500,
-                                    textAlign: 'center',
-                                    cursor: 'pointer',
-                                    border: 'solid 1px #eee'
                                 }}
                                 onClick={() => this.selectedRoom.set(index)}
                             >
