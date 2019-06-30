@@ -1,5 +1,5 @@
 import firebase from '../config/Firebase';
-import { map, reduce, concat, includes, filter, find } from 'lodash';
+import { map, reduce, concat, includes, filter, find, get, keys } from 'lodash';
 import { decorate, computed, action, observable } from 'mobx';
 
 class HomeStore {
@@ -52,6 +52,13 @@ class HomeStore {
             lng: house.location.lng
         }));
     }
+
+    get roomsDetail() {
+        return filter(get(this.selectedHouse, 'rooms'), (room, name) => {
+            room.name = name;
+            return room.size > 0;
+        });
+    }
 }
 
 decorate(HomeStore, ({
@@ -59,6 +66,7 @@ decorate(HomeStore, ({
     selectedHouse: observable,
     houseClusters: observable,
     locations: computed,
+    roomsDetail: computed,
     onLoadRooms: action
 }))
 
