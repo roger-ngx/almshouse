@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
+import { throttle } from 'lodash';
 
 import './House.scss';
 import CategoryList from './CategoryList';
@@ -14,8 +15,18 @@ const Home = ({HomeStore}) => {
         height : HomeStore.isShowHouseList ? 'calc(100vh - 90px)' : '48px'
     };
 
+    function resize() {
+        if(window.innerWidth < 690){
+            HomeStore.setShowingHouseList(false);
+        }else{
+            HomeStore.setShowingHouseList(true);
+        }
+    }
+
     useEffect(() => {
       HomeStore.onLoadRooms();
+      window.addEventListener("resize", throttle(resize, 100, {leading: true}));
+      resize();
     });
 
     return (<div className='main-container'>

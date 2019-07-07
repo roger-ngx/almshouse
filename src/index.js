@@ -4,7 +4,6 @@ import { Provider } from 'mobx-react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import House from './pages/House/House';
-import HouseMobile from './pages/House/mobile/HouseMobile';
 import * as serviceWorker from './serviceWorker';
 import HomeStore from './stores/HomeStore';
 import HouseDetail from './pages/HouseDetail';

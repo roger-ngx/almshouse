@@ -7,7 +7,7 @@ class HomeStore {
     houses = [];
     houseClusters = [];
     selectedHouse = null;
-    isShowHouseList = false;
+    isShowHouseList = true;
 
     categoryList = [
         { mainText: '대학인근', subText: '막차 걱정 없는'},
