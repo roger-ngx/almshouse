@@ -16,15 +16,6 @@ import AdminStore from './stores/AdminStore';
 import LoginStore from './stores/LoginStore';
 import './index.scss';
 
-const isMobile = (navigator.userAgent.match(/Android/i)
-    || navigator.userAgent.match(/webOS/i)
-    || navigator.userAgent.match(/iPhone/i)
-    || navigator.userAgent.match(/iPad/i)
-    || navigator.userAgent.match(/iPod/i)
-    || navigator.userAgent.match(/BlackBerry/i)
-    || navigator.userAgent.match(/Windows Phone/i)
-    );
-
 ReactDOM.render(
     <Provider 
         HomeStore={HomeStore}
@@ -38,7 +29,7 @@ ReactDOM.render(
             </div>
             <div style={{flex: 1, overflow: 'scroll'}}>
                 <Router>
-                    <Route exact path='/' component={isMobile ? HouseMobile : House} />
+                    <Route exact path='/' component={House} />
                     <Route path='/houses/:id' component={HouseDetail} />
                     <Route path='/admin' component={Admin} />
                 </Router>

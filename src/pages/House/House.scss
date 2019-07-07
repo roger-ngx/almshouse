@@ -9,12 +9,25 @@
         font-size: 0.85vw;
         padding-inline-start: 0;
     }
+
+    @media (max-width: 690px) {
+        display: none;
+    }
 }
 
 .house-list {
     flex: 3;
-    height: 100%;
-    padding: 20px;
+    height: calc(100% - 20px);
+    padding: 0 20px;
+    background-color: #fff;
+    @media (max-width: 690px) {
+        left: 0;
+        bottom: 0;
+        height: 48px;
+        z-index: 1;
+        position: absolute;
+        transition: all 0.5s;
+    }
 }
 
 .map-container {
@@ -24,9 +37,14 @@
 
 .home-container{
     display: flex;
-    flex-direction: 'row';
-    height: 100%;
+    flex-direction: row;
+    height: calc(100% - 48px);
     padding: 20px;
+
+    @media (max-width: 690px) {
+        flex-direction: column-reverse;
+        position: relative;
+    }
 }
 
 .main-container {

@@ -5,9 +5,14 @@ import { observer } from 'mobx-react-lite';
 import './House.scss';
 import CategoryList from './CategoryList';
 import MapContainer from '../../components/MapContainer/MapContainer';
+import MobileHouseStatus from '../../components/MobileHouseStatus/MobileHouseStatus';
 import MainContent from './MainContent';
 
 const Home = ({HomeStore}) => {
+
+    const mHouseListStyle = {
+        height : HomeStore.isShowHouseList ? 'calc(100vh - 90px)' : '48px'
+    };
 
     useEffect(() => {
       HomeStore.onLoadRooms();
@@ -18,7 +23,8 @@ const Home = ({HomeStore}) => {
             <div className='category-list'>
                 <CategoryList />
             </div>
-            <div className='house-list'>
+            <div className='house-list' style={mHouseListStyle}>
+                <MobileHouseStatus />
                 <MainContent />
             </div>
             <div className='map-container'>
