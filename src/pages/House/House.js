@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { inject } from 'mobx-react';
-import { observer } from 'mobx-react-lite';
+import React from 'react';
+import { inject, observer } from 'mobx-react';
 import { throttle } from 'lodash';
 
 import './House.scss';
@@ -9,40 +8,51 @@ import MapContainer from '../../components/MapContainer/MapContainer';
 import MobileHouseStatus from '../../components/MobileHouseStatus/MobileHouseStatus';
 import MainContent from './MainContent';
 
-const Home = ({HomeStore}) => {
+class Home extends React.Component{
 
-    const mHouseListStyle = {
-        height : HomeStore.isShowHouseList ? 'calc(100vh - 90px)' : '48px'
-    };
+    constructor(props){
+        super(props);
 
-    function resize() {
+        this.resizeListener = window.addEventListener("resize", throttle(this.resize, 100, {leading: true}));
+        this.resize();
+    }
+
+    componentDidMount() {
+        this.props.HomeStore.onLoadRooms();
+    }
+
+    componentWillUnmount() {
+        this.resizeListener.removeEventListener();
+    }
+
+    resize = () => {
         if(window.innerWidth < 690){
-            HomeStore.setShowingHouseList(false);
+            this.props.HomeStore.setShowingHouseList(false);
         }else{
-            HomeStore.setShowingHouseList(true);
+            this.props.HomeStore.setShowingHouseList(true);
         }
     }
 
-    useEffect(() => {
-      HomeStore.onLoadRooms();
-      window.addEventListener("resize", throttle(resize, 100, {leading: true}));
-      resize();
-    });
+    render(){
+        const mHouseListStyle = {
+            height : this.props.HomeStore.isShowHouseList ? 'calc(100vh - 90px)' : '48px'
+        };
 
-    return (<div className='main-container'>
-        <div className='home-container'>
-            <div className='category-list'>
-                <CategoryList />
+        return (<div className='main-container'>
+            <div className='home-container'>
+                <div className='category-list'>
+                    <CategoryList />
+                </div>
+                <div className='house-list' style={mHouseListStyle}>
+                    <MobileHouseStatus />
+                    <MainContent />
+                </div>
+                <div className='map-container'>
+                    <MapContainer />
+                </div>
             </div>
-            <div className='house-list' style={mHouseListStyle}>
-                <MobileHouseStatus />
-                <MainContent />
-            </div>
-            <div className='map-container'>
-                <MapContainer />
-            </div>
-        </div>
-    </div>)
+        </div>)
+    }
 }
 
 export default inject('HomeStore')(observer(Home));
