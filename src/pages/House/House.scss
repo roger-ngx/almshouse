@@ -26,6 +26,7 @@
         z-index: 1;
         position: absolute;
         transition: all 0.5s;
+        width: calc(100% - 40px);
     }
     @media (min-width: 690px) {
         height: calc(100% - 20px);
@@ -40,8 +41,7 @@
 .home-container{
     display: flex;
     flex-direction: row;
-    height: calc(100% - 48px);
-    padding: 20px;
+    height: 100%;
 
     @media (max-width: 690px) {
         flex-direction: column-reverse;

@@ -12,10 +12,14 @@ const CardFooter = ({house}) => <div className='footer_container'>
         </span>
    </div>
    <div className='footer_text_line'>
-        <span>여성전용</span>
-        <span className='sub-text'>단독주택</span>
-        <span>신청가능</span>
-        <span className='no-bed-avail'>3</span>
+        <div style={{flexDirection: 'row'}}>
+          <span>여성전용</span>
+          <span className='sub-text'>단독주택</span>
+        </div>
+        <div style={{flexDirection: 'row'}}>
+          <span>신청가능</span>
+          <span className='no-bed-avail'>3</span>
+        </div>
    </div>
 </div>
 

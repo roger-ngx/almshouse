@@ -26,7 +26,7 @@ ReactDOM.render(
             <div style={{width: '100%'}}>
                 <NavigationBar />
             </div>
-            <div style={{flex: 1, overflow: 'scroll'}}>
+            <div style={{flex: 1, overflow: 'auto'}}>
                 <Router>
                     <Route exact path='/' component={House} />
                     <Route path='/houses/:id' component={HouseDetail} />

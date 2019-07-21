@@ -18,7 +18,7 @@ const styles = {
     },
     searchContent: {
         overflow: 'scroll',
-        height: 'calc(100% - 84px)'
+        height: '100%'
     }
 }
 const MainContent = (props)=> {

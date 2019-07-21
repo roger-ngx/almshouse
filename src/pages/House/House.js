@@ -35,7 +35,7 @@ class Home extends React.Component{
 
     render(){
         const mHouseListStyle = {
-            height : this.props.HomeStore.isShowHouseList ? 'calc(100vh - 90px)' : '48px'
+            height : this.props.HomeStore.isShowHouseList ? 'calc(100vh - 60px)' : '48px'
         };
 
         return (<div className='main-container'>

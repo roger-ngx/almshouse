@@ -1,15 +1,14 @@
 @import './assets/variables.scss';
 
-html {
-    @media (max-width: 480px){
-        font-size: 10px;
-    }
-}
-
 body {
     margin: 0;
     height: 100vh;
     font-family: $font-family;
+    font-size: 1.1vw;
+
+    @media (max-width:990px){
+        font-size: 10px
+    }
 }
 
 a {
