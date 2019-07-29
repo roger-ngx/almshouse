@@ -38,16 +38,16 @@ class Home extends React.Component{
             height : this.props.HomeStore.isShowHouseList ? 'calc(100vh - 60px)' : '48px'
         };
 
-        return (<div className='main-container'>
-            <div className='home-container'>
-                <div className='category-list'>
+        return (<div className='house'>
+            <div className='house__container'>
+                <div className='house__container__category-list'>
                     <CategoryList />
                 </div>
-                <div className='house-list' style={mHouseListStyle}>
+                <div className='house__container__house-list' style={mHouseListStyle}>
                     <MobileHouseStatus />
                     <MainContent />
                 </div>
-                <div className='map-container'>
+                <div className='house__container__map-container'>
                     <MapContainer />
                 </div>
             </div>

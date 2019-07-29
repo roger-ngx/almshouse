@@ -1,5 +1,25 @@
+.house {
+    height: 100%;
+    overflow: hidden;
+}
 
-.category-list{
+.house__container{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+
+    @media (max-width: 690px) {
+        flex-direction: column-reverse;
+        position: relative;
+    }
+}
+
+.house__container__map-container {
+    flex: 3;
+    height: 100%;
+}
+
+.house__container__category-list{
     flex: 1;
     height: 100%;
     padding: 0 30px;
@@ -15,7 +35,7 @@
     }
 }
 
-.house-list {
+.house__container__house-list {
     flex: 3;
     padding: 0 20px;
     background-color: #fff;
@@ -33,23 +53,4 @@
     }
 }
 
-.map-container {
-    flex: 3;
-    height: 100%;
-}
 
-.home-container{
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-
-    @media (max-width: 690px) {
-        flex-direction: column-reverse;
-        position: relative;
-    }
-}
-
-.main-container {
-    height: 100%;
-    overflow: hidden;
-}

@@ -34,14 +34,14 @@ class HouseDetail extends React.Component {
             }));
 
 
-        return <div className='house-detail-container'>
-            <div style={{paddingBottom: '20px', position: 'relative', minHeight: '100px'}}>
+        return <div className='house-detail'>
+            <div className='house-detail__images'>
                 {
                     !!roomTypes.length &&
-                    <div className='room-btn-group'>
+                    <div className='house-detail__images__room-btn-group'>
                         {
                             map(roomTypes, (roomType, index) => <div
-                                className='room-btn'
+                                className='house-detail__images__room-btn-group__room-btn'
                                 key={roomType}
                                 style={{
                                     backgroundColor: this.selectedRoom.get() === index ? '#FE605C' : '#fff',
@@ -67,17 +67,17 @@ class HouseDetail extends React.Component {
                     />
                 {/* </div> */}
             </div>
-            <div className='home-section'>
-                <div onClick={() => currentSection.set(1)} className={`house-section-btn ${currentSection.get() === 1 ? 'house-section-btn-active' : ''}`}>
+            <div className='house-detail__information'>
+                <div onClick={() => currentSection.set(1)} className={`house-detail__information__section-btn ${currentSection.get() === 1 ? 'house-detail__information__section-btn--active' : ''}`}>
                     지점 소개
                 </div>
-                <div onClick={() => currentSection.set(2)} className={`house-section-btn ${currentSection.get() === 2 ? 'house-section-btn-active' : ''}`}>
+                <div onClick={() => currentSection.set(2)} className={`house-detail__information__section-btn ${currentSection.get() === 2 ? 'house-detail__information__section-btn--active' : ''}`}>
                     방 정보
                 </div>
-                <div onClick={() => currentSection.set(3)} className={`house-section-btn ${currentSection.get() === 3 ? 'house-section-btn-active' : ''}`}>
+                <div onClick={() => currentSection.set(3)} className={`house-detail__information__section-btn ${currentSection.get() === 3 ? 'house-detail__information__section-btn--active' : ''}`}>
                     세부 정보
                 </div>
-                <div onClick={() => currentSection.set(4)} className={`house-section-btn ${currentSection.get() === 4 ? 'house-section-btn-active' : ''}`}>
+                <div onClick={() => currentSection.set(4)} className={`house-detail__information__section-btn ${currentSection.get() === 4 ? 'house-detail__information__section-btn--active' : ''}`}>
                     FAQ
                 </div>
             </div>
